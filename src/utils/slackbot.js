@@ -10,9 +10,10 @@ dayjs.extend(localizedFormat);
 dayjs.extend(timezone);
 dayjs.tz.setDefault(process.env.TZ);
 // An access token (from your Slack app or custom integration - xoxp, xoxb)
-const token = process.env.SLACK_TOKEN; // Add a bot https://my.slack.com/services/new/bot and put the token 
+// const token = process.env.SLACK_USER_TOKEN; // Add a bot https://my.slack.com/services/new/bot and put the token 
+const token = process.env.SLACK_BOT_TOKEN; // Add a bot https://my.slack.com/services/new/bot and put the token 
 
-const web = new WebClient(token);
+const bot = new WebClient(token);
 
 const getCitationBlocks = async () => {
     const blocks = [];
@@ -76,11 +77,13 @@ const sendMessage = (conversationId) => {
     blocks.push({
         "type": "divider"
     });
-    return web.chat.postMessage({ channel: conversationId, blocks }).catch((error) => console.log(error.data));
+    return bot.chat.postMessage({ channel: conversationId, blocks }).catch((error) => console.log(error.data));
 }
-(async () => {
-    const conversationId = process.env.SLACk_PUBLISH_CHANNEL_ID
-    // Tentative de rejoindre le channel, si on est déjà dessus, il se passe rien
-    await web.conversations.join({ channel: conversationId });
-    await sendMessage(conversationId);
-})();
+// (async () => {
+//     const conversationId = process.env.SLACk_PUBLISH_CHANNEL_ID
+//     // Tentative de rejoindre le channel, si on est déjà dessus, il se passe rien
+//     await web.conversations.join({ channel: conversationId });
+//     await sendMessage(conversationId);
+// })();
+
+export default bot;
