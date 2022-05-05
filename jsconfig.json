@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "allowSyntheticDefaultImports": false,
+    "baseUrl": "./",
+    "paths": {
+      "dist/*": [
+        "./dist"
+      ],
+      "src/*": [
+        "./src"
+      ],
+      "tests/*": [
+        "./tests"
+      ],
+    }
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^src(.*)$": "<rootDir>/src$1",
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+  ]
+}
