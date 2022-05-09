@@ -24,19 +24,6 @@ export default (req, res, next) => async (
     },
 ) => {
     try {
-        console.log({
-            bot_id: botId,
-            client_msg_id,
-            type,
-            text,
-            user,
-            ts,
-            team,
-            blocks,
-            channel,
-            event_ts: eventTs,
-            channel_type,
-        });
         // Si c'est un message du bot on va pas répondre au bot ...
         // Sinon boucle infini de réponsement !
         if (botId) {

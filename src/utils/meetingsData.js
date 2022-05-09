@@ -10,9 +10,7 @@ export default {
     },
     createMeeting(channelId) {
         if (meetingsByChannel[channelId]) {
-            console.log('before', { userIdSubscription, keys: Object.keys(meetingsByChannel[channelId]) });
             Object.keys(meetingsByChannel[channelId]).forEach((userId) => {
-                console.log({ userId });
                 if (userIdSubscription[userId]) {
                     delete userIdSubscription[userId];
                 }
@@ -20,8 +18,6 @@ export default {
                     delete userStepsByChannel[userId];
                 }
             });
-
-            console.log('after', { userIdSubscription });
         }
         meetingsByChannel[channelId] = {};
     },
