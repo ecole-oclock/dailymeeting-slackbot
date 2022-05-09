@@ -1,5 +1,7 @@
 import meetingSubscribe from './meetingSubscribe';
+import meetingStart from './meetingStart';
 
 export default {
-    '/meetingsubscribe': meetingSubscribe
-}
+    '/meeting-subscribe': meetingSubscribe,
+    '/meeting-start': meetingStart,
+};

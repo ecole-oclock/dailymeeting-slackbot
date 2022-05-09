@@ -15,11 +15,13 @@ import IsoWeek from 'dayjs/plugin/isoWeek';
 import Timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 import UpdateLocale from 'dayjs/plugin/updateLocale';
+import meetingsData from 'src/utils/meetingsData';
 
 /*
  * Local Import
  */
-import routes from './routes';
+import routes from 'src/routes';
+import logger from 'src/utils/logger';
 
 /*
  * Init
@@ -33,14 +35,14 @@ dayjs.extend(Calendar);
 dayjs.extend(UpdateLocale);
 dayjs.locale('fr');
 dayjs.updateLocale('fr', {
-  calendar: {
-    lastDay: '[Hier at]',
-    sameDay: "[Aujourd'hui]",
-    nextDay: '[Demain]',
-    lastWeek: 'dddd [dernier]',
-    nextWeek: 'dddd',
-    sameElse: 'L',
-  },
+    calendar: {
+        lastDay: '[Hier at]',
+        sameDay: "[Aujourd'hui]",
+        nextDay: '[Demain]',
+        lastWeek: 'dddd [dernier]',
+        nextWeek: 'dddd',
+        sameElse: 'L',
+    },
 });
 dayjs.tz.setDefault('Europe/Paris');
 
@@ -55,7 +57,7 @@ const app = express();
 // API : https://github.com/expressjs/morgan
 // `dev` is equal to `:method :url :status :response-time ms`
 if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
+    app.use(morgan('dev'));
 }
 
 // Disable the X-Powered-By header.
@@ -70,15 +72,30 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 // CORS
 // API : https://github.com/expressjs/cors#configuration-options
 app.use(
-  cors({
-    origin: true, // Pour accepter n'importe quelle origine
-  }),
+    cors({
+        origin: true, // Pour accepter n'importe quelle origine
+    }),
 );
 
 /*
  * Routes
  */
+app.use((req, res, next) => {
+    meetingsData.logMeetings();
+    next();
+});
 routes(app);
+/*
+ * Middleware de gestion d'erreur
+ */
+
+app.use((err, req, res, next) => {
+    logger.error(err, err.stack);
+    if (res.headersSent) {
+        return next(err);
+    }
+    return res.status(500).send(err.message);
+});
 
 /*
  * Export

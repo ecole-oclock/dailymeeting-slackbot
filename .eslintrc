@@ -1,18 +1,48 @@
 {
-  "extends": [
-    "airbnb"
-  ],
+  "extends": "airbnb",
   "rules": {
     // Indent with 2 spaces
-    "indent": ["error", 4],
+    "indent": [
+      "error",
+      4
+    ],
     // Indent JSX with 2 spaces
-    "react/jsx-indent": ["error", 4],
-    "max-len": ["error", 140, 4, {
-      "ignoreUrls": true,
-      "ignoreComments": true,
-      "ignoreRegExpLiterals": true,
-      "ignoreStrings": true,
-      "ignoreTemplateLiterals": true
-    }]
+    "react/jsx-indent": [
+      "error",
+      4
+    ],
+    "max-len": [
+      "error",
+      140,
+      4,
+      {
+        "ignoreUrls": true,
+        "ignoreComments": true,
+        "ignoreRegExpLiterals": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true
+      }
+    ]
+  },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [
+          [
+            "src",
+            "./src"
+          ]
+        ],
+        "extensions": [
+          ".ts",
+          ".js",
+          ".jsx",
+          ".json"
+        ]
+      }
+    }
+  },
+  "parserOptions": {
+    "ecmaVersion": 2020
   }
 }

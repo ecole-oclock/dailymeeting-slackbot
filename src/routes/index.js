@@ -17,14 +17,15 @@ const routes = new Router();
  * Export default
  */
 export default (app) => {
-   /*
-   * Routes
-   */
-  app.use(routes);
+    /*
+    * Routes
+    */
 
-  routes.post('/commands', slack.processCommand)
-  routes.post('/events', slack.processEvents)
+    routes.post('/commands', slack.processCommand);
+    routes.post('/events', slack.processEvents);
+    app.use(routes);
 
-  // 404 - Page Not Found
-//   routes.use(errorHandlers.notFound);
+    // 404 - Page Not Found
+    //   routes.use(errorHandlers.notFound);
+    return app;
 };
