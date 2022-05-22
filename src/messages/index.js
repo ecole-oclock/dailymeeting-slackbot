@@ -11,7 +11,7 @@ export const meetingStartMessage = (userId, channelId) => ({
                 type: 'mrkdwn',
                 text:
                     `Hey <!here> c'est l'heure :timer_clock:, <@${userId}> vient de démarrer le daily meeting !\n`
-                    + 'Il te suffit de taper cliquer sur le bouton pour y participer et je viendrai te poser des questions :smirk: !\n\r'
+                    + 'Il te suffit de cliquer sur le bouton pour y participer et je viendrai te poser des questions :smirk: !\n\r'
                     + 'A tout de suite ! :runner:',
             },
         },
