@@ -1,17 +1,18 @@
 {
   "compilerOptions": {
     "target": "es2017",
+    "module": "commonjs",
     "allowSyntheticDefaultImports": false,
     "baseUrl": "./",
     "paths": {
       "dist/*": [
-        "./dist"
+        "dist/*"
       ],
       "src/*": [
-        "./src"
+        "src/*"
       ],
       "tests/*": [
-        "./tests"
+        "tests/*"
       ],
     }
   },
@@ -20,6 +21,7 @@
       "^src(.*)$": "<rootDir>/src$1",
     }
   },
+  "include": ["src/**/*"],
   "exclude": [
     "node_modules",
     "dist",

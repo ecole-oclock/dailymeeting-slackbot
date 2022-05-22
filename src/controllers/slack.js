@@ -1,10 +1,12 @@
 import slackCommandsService from 'src/services/slackCommands';
 import slackEventsService from 'src/services/slackEvents';
+import slackInteractiveService from 'src/services/slackInteractive';
 import logger from 'src/utils/logger';
 
 const slack = {
     processCommand: (req, res, next) => {
         if (slackCommandsService[req.body.command]) {
+            logger.info(`Traitement de la commande ${req.body.command} lancée par ${req.body.user_name}`);
             return slackCommandsService[req.body.command](req, res, next)(req.body);
         }
         return res.send('Heuuu cette commande n\'est pas encore implémentée mon p\'tit pigeon !');
@@ -21,6 +23,21 @@ const slack = {
             logger.info('Réception d\'un event inconnu', event);
         }
         return res.json({ challenge });
+    },
+    processInteractive: (req, res, next) => {
+        const payload = JSON.parse(req.body.payload);
+        if (payload?.type && slackInteractiveService?.[payload?.type]?.[payload?.actions?.[0]?.action_id]) {
+            logger.info(`Réception d'un event ${payload?.type} pour l'action ${payload?.actions?.[0]?.action_id} de l'utilisateur ${payload?.user?.username}`);
+            return slackInteractiveService[payload.type][payload.actions[0].action_id](req, res, next)(payload);
+        }
+        if (!payload?.type) {
+            logger.info('Réception d\'un payload sans type', JSON.stringify(payload));
+        } else if (!payload?.action || !payload?.action.length) {
+            logger.info('Réception d\'un payload sans action', JSON.stringify(payload));
+        } else {
+            logger.info('Réception d\'un payload inconnu', JSON.stringify(payload));
+        }
+        return res.json();
     },
 };
 

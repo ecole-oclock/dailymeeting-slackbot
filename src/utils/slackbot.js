@@ -5,13 +5,14 @@ import 'dayjs/locale/fr';
 import timezone from 'dayjs/plugin/timezone';
 
 import localizedFormat from 'dayjs/plugin/localizedFormat';
-dayjs.locale('fr')
+
+dayjs.locale('fr');
 dayjs.extend(localizedFormat);
 dayjs.extend(timezone);
 dayjs.tz.setDefault(process.env.TZ);
 // An access token (from your Slack app or custom integration - xoxp, xoxb)
-// const token = process.env.SLACK_USER_TOKEN; // Add a bot https://my.slack.com/services/new/bot and put the token 
-const token = process.env.SLACK_BOT_TOKEN; // Add a bot https://my.slack.com/services/new/bot and put the token 
+// const token = process.env.SLACK_USER_TOKEN; // Add a bot https://my.slack.com/services/new/bot and put the token
+const token = process.env.SLACK_BOT_TOKEN; // Add a bot https://my.slack.com/services/new/bot and put the token
 
 const bot = new WebClient(token);
 
@@ -23,62 +24,62 @@ const getCitationBlocks = async () => {
 
     if (citation) {
         blocks.push({
-            "type": "context",
-            "elements": [
+            type: 'context',
+            elements: [
                 {
-                    "type": "mrkdwn",
-                    "text": "Avec une petite citation ça fait pas de mal"
-                }
-            ]
+                    type: 'mrkdwn',
+                    text: 'Avec une petite citation ça fait pas de mal',
+                },
+            ],
         });
         blocks.push({
-            "type": "context",
-            "elements": [
+            type: 'context',
+            elements: [
                 {
-                    "type": "mrkdwn",
-                    "text": `>${citation.citation.replace(/[\(\)]/gm, '_').replace(/\'\'/gm, '"').replace(/\\n/gm, '')}`
-                }
-            ]
+                    type: 'mrkdwn',
+                    text: `>${citation.citation.replace(/[\(\)]/gm, '_').replace(/\'\'/gm, '"').replace(/\\n/gm, '')}`,
+                },
+            ],
         });
         blocks.push({
-            "type": "context",
-            "elements": [
+            type: 'context',
+            elements: [
                 {
-                    "type": "mrkdwn",
-                    "text": `_${citation.infos.personnage} - ${citation.infos.saison} - ${citation.infos.episode}_`
-                }
-            ]
+                    type: 'mrkdwn',
+                    text: `_${citation.infos.personnage} - ${citation.infos.saison} - ${citation.infos.episode}_`,
+                },
+            ],
         });
     }
     return blocks;
-}
+};
 const sendMessage = (conversationId) => {
-    let blocks = [{
-        "type": "header",
-        "text": {
-            "type": "plain_text",
-            "text": ":newspaper:  Petit test de titre  :newspaper:"
-        }
+    const blocks = [{
+        type: 'header',
+        text: {
+            type: 'plain_text',
+            text: ':newspaper:  Petit test de titre  :newspaper:',
+        },
     },
     {
-        "type": "section",
-        "text": {
-            "type": "mrkdwn",
-            "text": `*Et là* une section`
-        }
+        type: 'section',
+        text: {
+            type: 'mrkdwn',
+            text: '*Et là* une section',
+        },
     }];
     blocks.push({
-        "type": "section",
-        "text": {
-            "type": "mrkdwn",
-            "text": "*Et voilà ! Passe une bonne journée !*"
-        }
+        type: 'section',
+        text: {
+            type: 'mrkdwn',
+            text: '*Et voilà ! Passe une bonne journée !*',
+        },
     });
     blocks.push({
-        "type": "divider"
+        type: 'divider',
     });
     return bot.chat.postMessage({ channel: conversationId, blocks }).catch((error) => console.log(error.data));
-}
+};
 // (async () => {
 //     const conversationId = process.env.SLACk_PUBLISH_CHANNEL_ID
 //     // Tentative de rejoindre le channel, si on est déjà dessus, il se passe rien

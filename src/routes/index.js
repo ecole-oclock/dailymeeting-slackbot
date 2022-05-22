@@ -23,6 +23,7 @@ export default (app) => {
 
     routes.post('/commands', slack.processCommand);
     routes.post('/events', slack.processEvents);
+    routes.post('/interactive-endpoint', slack.processInteractive);
     app.use(routes);
 
     // 404 - Page Not Found

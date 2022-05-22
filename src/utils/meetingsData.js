@@ -1,3 +1,6 @@
+import { meetingIsAlreadyFinished, noStepRemaining, userHasNotBeenSubscribedToMeeting } from 'src/messages';
+import logger from 'src/utils/logger';
+
 const steps = ['yesterday', 'today', 'difficulties'];
 
 const meetingsByChannel = {};
@@ -23,7 +26,7 @@ export default {
     },
     subscribeUserToMeeting(userId, channelId) {
         if (!meetingsByChannel[channelId]) {
-            throw new Error('On s\'inscrit pas avant que quelqu\'un ai lancé le daily non ? Ça fait mauvais genre !');
+            throw new Error(meetingIsAlreadyFinished().text);
         }
         userIdSubscription[userId] = channelId;
         meetingsByChannel[channelId][userId] = {};
@@ -34,7 +37,7 @@ export default {
     addInfoToUserMeeting(userId, step, info) {
         const channelId = userIdSubscription[userId];
         if (!channelId) {
-            throw new Error('Ah bah mince l\'utilisateur ne s\'est pas inscrit à un meeting');
+            throw new Error(userHasNotBeenSubscribedToMeeting().text);
         }
         if (!meetingsByChannel[channelId][userId]) {
             meetingsByChannel[channelId][userId] = {};
@@ -47,7 +50,7 @@ export default {
     getUserInfoMeeting(userId, step = null) {
         const channelId = userIdSubscription[userId];
         if (!channelId) {
-            throw new Error('Ah bah mince l\'utilisateur ne s\'est pas inscrit à un meeting');
+            throw new Error(userHasNotBeenSubscribedToMeeting().text);
         }
         if (step) {
             return meetingsByChannel?.[channelId]?.[userId]?.[step];
@@ -58,15 +61,13 @@ export default {
         return meetingsByChannel?.[channelId];
     },
     logMeetings() {
-        console.log({
-            meetingsByChannel,
-            userIdSubscription,
-        });
+        logger.debug(`Meetings par canal ${JSON.stringify(meetingsByChannel)}`);
+        logger.debug(`userId Subscription ${JSON.stringify(userIdSubscription)}`);
     },
     getUserCurrentStep(userId) {
         const channelId = userIdSubscription[userId];
         if (!channelId) {
-            throw new Error('Ah bah mince l\'utilisateur ne s\'est pas inscrit à un meeting');
+            throw new Error(userHasNotBeenSubscribedToMeeting().text);
         }
         if (userStepsByChannel[userId] === undefined) {
             return steps[0];
@@ -77,7 +78,7 @@ export default {
         if (userStepsByChannel[userId] === undefined) {
             userStepsByChannel[userId] = 0;
         } else if (userStepsByChannel[userId] >= steps.length - 1) {
-            throw new Error('Il n\'y a plus d\'étape, il a fini le gus !');
+            throw new Error(noStepRemaining().text);
         } else {
             userStepsByChannel[userId] += 1;
         }

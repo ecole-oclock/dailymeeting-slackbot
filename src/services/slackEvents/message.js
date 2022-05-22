@@ -23,6 +23,9 @@ export default (req, res, next) => async (
         channel_type,
     },
 ) => {
+    //! On await pas les messages envoyés via l'api bot
+    //! sinon l'api met trop de temps à répondre et les messages sont renvoyés par slack
+    //! ce qui fait qu'on a les message x10
     try {
         // Si c'est un message du bot on va pas répondre au bot ...
         // Sinon boucle infini de réponsement !
@@ -31,17 +34,17 @@ export default (req, res, next) => async (
         }
 
         if (!meetingsData.isUserSubscribed(user)) {
-            await bot.chat.postMessage({
+            bot.chat.postMessage({
                 channel: user,
-                text: meetingMessageToBotButNotSubscribe(),
+                text: meetingMessageToBotButNotSubscribe().text,
             });
             return res.send();
         }
         // Si il répond alors et qu'on est là c'est qu'il répond à une question qu'on lui a posé
         // Il est donc à une step défini, on lui demande donc si il en a fini avec la step
-        await bot.chat.postMessage({
+        bot.chat.postMessage({
             channel: user,
-            text: meetingSubscribeValidationNext(),
+            text: meetingSubscribeValidationNext().text,
         });
 
         // await bot.chat.postMessage({
