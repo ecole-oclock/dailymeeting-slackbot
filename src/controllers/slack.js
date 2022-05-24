@@ -31,11 +31,11 @@ const slack = {
             return slackInteractiveService[payload.type][payload.actions[0].action_id](req, res, next)(payload);
         }
         if (!payload?.type) {
-            logger.info('Réception d\'un payload sans type', JSON.stringify(payload));
+            logger.warn(`Réception d'un payload sans type ${JSON.stringify(payload)}`);
         } else if (!payload?.action || !payload?.action.length) {
-            logger.info('Réception d\'un payload sans action', JSON.stringify(payload));
+            logger.warn(`Réception d'un payload ${payload.type} sans action ${JSON.stringify(payload)}`);
         } else {
-            logger.info('Réception d\'un payload inconnu', JSON.stringify(payload));
+            logger.warn(`Réception d'un payload ${payload.type} inconnu ${JSON.stringify(payload)}`);
         }
         return res.json();
     },

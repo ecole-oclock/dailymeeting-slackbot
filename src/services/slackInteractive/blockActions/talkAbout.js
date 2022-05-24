@@ -1,23 +1,23 @@
 import meetingsData from 'src/utils/meetingsData';
 import bot from 'src/utils/slackbot';
 import {
-    meetingSubscribeIntroduction,
     meetingMessageByStep,
-    userAlreadySubscribedToMeeting,
     meetingMessageUserHasAlreadyFinished,
+    userAlreadySubscribedToMeeting,
+    userHasNotBeenSubscribedToMeeting,
 } from 'src/messages';
+import logger from 'src/utils/logger';
 
 export default (req, res, next) => async ({
     user: { id: userId },
-    channel: { id: channelId },
     ...restPayload
 }) => {
-    const meetingChannelID = restPayload?.actions?.[0]?.value;
+    const step = restPayload?.actions?.[0]?.value;
     try {
-        if (meetingsData.isUserSubscribed(userId)) {
+        if (!meetingsData.isUserSubscribed(userId)) {
             bot.chat.postMessage({
                 channel: userId,
-                text: userAlreadySubscribedToMeeting().text,
+                text: userHasNotBeenSubscribedToMeeting().text,
                 username: 'Daily Bot',
                 as_user: true,
             });
@@ -32,8 +32,9 @@ export default (req, res, next) => async ({
         }
 
         try {
-            meetingsData.subscribeUserToMeeting(userId, meetingChannelID);
+            meetingsData.setUserStep(userId, step);
         } catch (error) {
+            logger.error(error.stack);
             bot.chat.postMessage({
                 channel: userId,
                 text: error.message,
@@ -43,11 +44,11 @@ export default (req, res, next) => async ({
             return res.send();
         }
         //! On await pas dans le thread de la requete sinon ça prend trop de temps et on passe en timeout
-        const meetingSubscribeIntroductionObj = meetingSubscribeIntroduction(channelId);
+        const meetingMessageByStepObj = meetingMessageByStep(step);
         bot.chat.postMessage({
             channel: userId,
-            text: meetingSubscribeIntroductionObj.text,
-            blocks: meetingSubscribeIntroductionObj.blocks,
+            text: meetingMessageByStepObj.text,
+            blocks: meetingMessageByStepObj.blocks,
             username: 'Daily Bot',
             as_user: true,
         });
