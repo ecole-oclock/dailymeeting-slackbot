@@ -22,6 +22,7 @@
   "dependencies": {
     "@slack/web-api": "^6.5.1",
     "axios": "^0.24.0",
+    "corejs": "^1.0.0",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dayjs": "^1.10.7",
