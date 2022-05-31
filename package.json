@@ -22,7 +22,6 @@
   "dependencies": {
     "@slack/web-api": "^6.5.1",
     "axios": "^0.24.0",
-    "corejs": "^1.0.0",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "dayjs": "^1.10.7",
@@ -37,6 +36,7 @@
     "@babel/node": "^7.17.10",
     "@babel/preset-env": "^7.17.10",
     "babel-plugin-module-resolver": "^4.1.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "eslint": "^8.2.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-import-resolver-alias": "^1.1.2",
