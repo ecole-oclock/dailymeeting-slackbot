@@ -121,13 +121,13 @@ export const showOwnUserDailyExport = (userDailyExport) => ({
 });
 
 export const showAllUserDailyExport = (allUsersDailyExport) => ({
-    text: `Et <!here> c'est l'heure ! Tout le monde a fini son récap, c'est partit pour le daily\n\r${allUsersDailyExport}`,
+    text: `Et <!here> c'est l'heure ! Tout le monde a fini son récap, c'est parti pour le daily\n\r${allUsersDailyExport}`,
     blocks: [
         {
             type: 'section',
             text: {
                 type: 'mrkdwn',
-                text: `Et c'est l'heure ! Tout le monde a fini son récap, c'est partit pour le daily\n\r${allUsersDailyExport}`,
+                text: `Et c'est l'heure ! Tout le monde a fini son récap, c'est parti pour le daily\n\r${allUsersDailyExport}`,
             },
         },
     ],
