@@ -91,13 +91,13 @@ export const meetingStartMessage = (userId, channelId) => ({
 });
 
 export const giveCreatorButtonCommands = (channelId) => ({
-    text: `:wave: Coucou, tu viens de demander la création d'un meeting, ci dessous tu trouvera un pannel de bouton pour faire des actions :wink:`,
+    text: `:wave: Coucou, tu viens de demander la création d'un meeting, ci dessous tu trouveras un pannel de bouton pour faire des actions :wink:`,
     blocks: [
         {
             type: 'section',
             text: {
                 type: 'mrkdwn',
-                text: `:wave: Coucou, tu viens de demander la création d'un meeting, ci dessous tu trouvera un pannel de bouton pour faire des actions :wink:`,
+                text: `:wave: Coucou, tu viens de demander la création d'un meeting, ci dessous tu trouveras un pannel de bouton pour faire des actions :wink:`,
             },
         },
         {
@@ -108,13 +108,13 @@ export const giveCreatorButtonCommands = (channelId) => ({
 });
 
 export const showOwnUserDailyExport = (userDailyExport) => ({
-    text: `Ah t'a fini ? Ok bah voici le récap de tout ce que tu m'a dis !\n\r${userDailyExport}`,
+    text: `Ah t'as fini ? Ok bah voici le récap de tout ce que tu m'as dis !\n\r${userDailyExport}`,
     blocks: [
         {
             type: 'section',
             text: {
                 type: 'mrkdwn',
-                text: `Ah t'a fini ? Ok bah voici le récap de tout ce que tu m'a dis !\n\r${userDailyExport}`,
+                text: `Ah t'as fini ? Ok bah voici le récap de tout ce que tu m'as dis !\n\r${userDailyExport}`,
             },
         },
     ],
@@ -151,13 +151,13 @@ export const userHasFinishedHisDaily = (userId, remainingUsersId = []) => {
 };
 
 export const allUsersHasFinishedTheirsDaily = (channelId) => ({
-    text: `✅  Tout le monde à fini de saisir son daily ! Tu peux commencer la réunion ! :ok_hand:`,
+    text: `✅  Tout le monde a fini de saisir son daily ! Tu peux commencer la réunion ! :ok_hand:`,
     blocks: [
         {
             type: 'section',
             text: {
                 type: 'mrkdwn',
-                text: `✅  Tout le monde à fini de saisir son daily ! Tu peux commencer la réunion ! :ok_hand:`,
+                text: `✅  Tout le monde a fini de saisir son daily ! Tu peux commencer la réunion ! :ok_hand:`,
             },
         },
         {
@@ -170,8 +170,8 @@ export const allUsersHasFinishedTheirsDaily = (channelId) => ({
 export const meetingSubscribeIntroduction = (channelId) => ({
     text: `Et coucou toi :wave: ! Je viens te parler pour te poser quelques questions vu que tu t'es inscrit au daily du canal <#${channelId}>`
         + ` :héhé: , allez commençons ! :rocket:\n`
-        + `T'a des boutons pour savoir de quoi on parle juste sous mon message clique sur l'un d'entre eux et ecris moi un petit message `
-        + `par chose que tu as fais, je compilerai tout à la fin :wink:\n\r`
+        + `T'as des boutons pour savoir de quoi on parle juste sous mon message clique sur l'un d'entre eux et écris-moi un petit message `
+        + `par chose que tu as faites, je compilerai tout à la fin :wink:\n\r`
         + `Alors, de quoi tu veux parler ?`,
     blocks: [
         {
@@ -181,8 +181,8 @@ export const meetingSubscribeIntroduction = (channelId) => ({
                 text:
                     `Et coucou toi :wave: ! Je viens te parler pour te poser quelques questions vu que tu t'es inscrit au daily du canal <#${channelId}>`
                     + ` :héhé: , allez commençons ! :rocket:\n`
-                    + `T'a des boutons pour savoir de quoi on parle juste sous mon message clique sur l'un d'entre eux et ecris moi un petit message `
-                    + `par chose que tu as fais, je compilerai tout à la fin :wink:\n\r`
+                    + `T'as des boutons pour savoir de quoi on parle juste sous mon message clique sur l'un d'entre eux et écris-moi un petit message `
+                    + `par chose que tu as faites, je compilerai tout à la fin :wink:\n\r`
                     + `Alors, de quoi tu veux parler ?`,
             },
         },
@@ -196,13 +196,13 @@ export const meetingSubscribeIntroduction = (channelId) => ({
 export const meetingMessageByStep = (step = 'yesterday') => {
     switch (step) {
         case 'last_day':
-            return { text: "Alors, t'a fais quoi hier ? :je-t-en-prie:" };
+            return { text: "Alors, t'as fait quoi hier ? :je-t-en-prie:" };
         case 'today':
-            return { text: "Dis moi tout, t'a prévu quoi aujourd'hui ?" };
+            return { text: "Dis-moi tout, t'as prévu quoi aujourd'hui ?" };
         case 'difficulties':
-            return { text: "Ah ? T'a eu ou t'a prévu d'avoir des difficultés visiblement ! Dis m'en plus !" };
+            return { text: "Ah ? T'as eu ou t'as prévu d'avoir des difficultés visiblement ! Dis m'en plus !" };
         default:
-            return { text: `T'a cliqué sur quoi là ? Je reconnais pas ce bouton ! Préviens celui qui a créé le daily meeting, y'a visiblement un soucis ! 💥` };
+            return { text: `T'as cliqué sur quoi là ? Je reconnais pas ce bouton ! Préviens celui qui a créé le daily meeting, y'a visiblement un soucis ! 💥` };
     }
 };
 
@@ -215,13 +215,13 @@ export const meetingSubscribeValidationNext = (currentStep) => {
     // On ajoute le bouton pour terminer le daily
     buttons.push(endButton);
     return {
-        text: "Okay ! Si t'a fais autre chose, tu peux continuer de m'écrire, sinon il te suffit de cliquer sur les boutons ci-dessous :",
+        text: "Okay ! Si t'as fait autre chose, tu peux continuer de m'écrire, sinon il te suffit de cliquer sur les boutons ci-dessous :",
         blocks: [
             {
                 type: 'section',
                 text: {
                     type: 'mrkdwn',
-                    text: "Okay ! Si t'a fais autre chose, tu peux continuer de m'écrire, sinon il te suffit de cliquer sur les boutons ci-dessous :",
+                    text: "Okay ! Si t'as fait autre chose, tu peux continuer de m'écrire, sinon il te suffit de cliquer sur les boutons ci-dessous :",
                 },
             },
             {
@@ -232,11 +232,11 @@ export const meetingSubscribeValidationNext = (currentStep) => {
     };
 };
 
-export const meetingIsAlreadyFinished = () => ({ text: "Le daily correspondant au bouton sur lequel tu as cliqué est déjà terminé ! Donc tu n'aura pas mes questions ! :boom:" });
+export const meetingIsAlreadyFinished = () => ({ text: "Le daily correspondant au bouton sur lequel tu as cliqué est déjà terminé ! Donc tu n'auras pas mes questions ! :boom:" });
 
-export const userHasNotBeenSubscribedToMeeting = () => ({ text: 'Alors avant de répondre à des questions, inscrit toi a un meeting non ? :sweat_smile:' });
+export const userHasNotBeenSubscribedToMeeting = () => ({ text: 'Alors avant de répondre à des questions, inscris-toi à un meeting non ? :sweat_smile:' });
 
-export const stepDoesNotExists = (step) => ({ text: `L'étape ${step} n'est pas gérée ! T'essaie d'hacker le système ? 🤔` });
+export const stepDoesNotExists = (step) => ({ text: `L'étape ${step} n'est pas gérée ! T'essaies d'hacker le système ? 🤔` });
 
 export const userAlreadySubscribedToMeeting = () => ({ text: 'Heuuu, tu es déjà inscrit à un meeting en fait on va peut être pas cummuler non ?!' });
 
