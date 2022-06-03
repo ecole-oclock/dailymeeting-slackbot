@@ -19,7 +19,7 @@ export default (req, res, next) => async ({
             blocks: userDailyExportMessage.blocks,
             username: 'Daily Bot',
             as_user: true,
-        });
+        }).catch((error) => logger.error(error.message));
         return res.send();
     } catch (error) {
         return next(error);
