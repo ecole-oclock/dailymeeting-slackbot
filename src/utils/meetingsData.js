@@ -192,9 +192,15 @@ export default {
             throw new Error(`Pas de daily en attente pour le channel ${channelId}`);
         }
         const channelUsers = Object.keys(meetingsByChannel[channelId]);
-        let result = '';
+        const result = [];
         channelUsers.forEach((userId) => {
-            result += `•\t<@${userId}>\n\r${this.getUserDailyExport(userId, '\t')}\n\r`;
+            result.push({
+                type: 'section',
+                text: {
+                    type: 'mrkdwn',
+                    text: `•\t<@${userId}>\n\r${this.getUserDailyExport(userId, '\t')}\n\r`,
+                },
+            });
         });
         return result;
     },
